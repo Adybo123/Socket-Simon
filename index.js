@@ -19,7 +19,9 @@ var simonColours = ['#7dcc6c', '#cc6c6c', '#dbd56f', '#6ab5d1']
 var patternPos = 0
 var patternLength = 3
 var pattern = []
-var patternDelay = 500
+var patternDelay = 750
+var acceptingInput = false
+var correct = 0
 
 function randomHex () {
   var hexChars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
@@ -45,9 +47,16 @@ function doRound () {
   var i = 1
   for (let p of pattern) {
     // Random player
-    setTimeout(() => {
+    let timeoutLambda = () => {
       p.emit('fire')
-    }, i * patternDelay)
+    }
+    if (!(i < pattern.length)) {
+      timeoutLambda = () => {
+        p.emit('fire')
+        acceptingInput = true
+      }
+    }
+    setTimeout(timeoutLambda, i * patternDelay)
     i++
   }
 }
@@ -85,12 +94,17 @@ io.on('connection', (socket) => {
 
   socket.on('patternInput', () => {
     console.log('Pattern input')
+    if (!acceptingInput) {
+      console.log("I don't want pattern input yet!")
+      return
+    }
     if (pattern[patternPos] === socket) {
       // Correct
       console.log('Correct')
       patternPos++
       if (patternPos >= patternLength) {
         // Done
+        correct++
         console.log('Pattern over')
         patternPos = 0
         patternLength++
@@ -98,10 +112,16 @@ io.on('connection', (socket) => {
         doRound()
       }
     } else {
-      console.log('Incorrect, restarting pattern')
+      console.log('Incorrect. Sending fail')
       // Wrong pattern! Start again
       patternPos = 0
-      doRound()
+      pattern = []
+      io.emit('failed', {
+        correct: correct
+      })
+      correct = 0
+      playing = false
+      patternLength = 3
     }
   })
 

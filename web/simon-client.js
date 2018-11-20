@@ -18,13 +18,13 @@ function inputHandler() {
 $(() => {
   socket = io()
 
-  $(document).click(inputHandler)
+  $(document).on('click touchstart', inputHandler)
   $(document).keydown(inputHandler)
 
   socket.on('colour', (data) => {
     playing = true
     myColour = data
-    $('body').css('background-color', myColour)
+    $('#led').css('background-color', myColour)
     $('#startHeader').addClass('off')
   })
 
@@ -33,5 +33,11 @@ $(() => {
     setTimeout(() => {
       $('#led').addClass('off')
     }, 250)
+  })
+
+  socket.on('failed', (data) => {
+    $('#startHeader').html(`Game over.<br />You got ${data.correct} patterns correct.`)
+    $('#startHeader').removeClass('off')
+    playing = false
   })
 })
