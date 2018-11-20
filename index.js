@@ -20,7 +20,7 @@ var patternPos = 0
 var patternLength = 3
 var pattern = []
 var patternDelay = 750
-var acceptingInput = false
+var acceptingInput = true
 var correct = 0
 
 function randomHex () {
@@ -45,6 +45,7 @@ function getColour () {
 
 function doRound () {
   var i = 1
+  acceptingInput = false
   for (let p of pattern) {
     // Random player
     let timeoutLambda = () => {
