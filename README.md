@@ -1,4 +1,6 @@
 # Socket Simon
+[![Build Status](https://travis-ci.com/Adybo123/Socket-Simon.svg?branch=master)](https://travis-ci.com/Adybo123/Socket-Simon)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 *The 70s toy played across all your web devices with Node and Socket.IO*
 
