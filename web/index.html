@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket Simon</title>
+    <script
+			  src="https://code.jquery.com/jquery-3.3.1.min.js"
+			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			  crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    <script src='simon-client.js'></script>
+
+    <style>
+      html, body {
+        padding: 0; margin: 0;
+        height: 100%;
+        font-family: sans-serif;
+        background-color: black;
+      }
+      #led {
+        height: 100%;
+        background-color: #fff;
+        opacity: 0.7;
+      }
+      .off {
+        display: none;
+      }
+      #startHeader {
+        position: fixed;
+        top: 50%; left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        color: white;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id='led' class='off'></div>
+    <h1 id='startHeader'>Tap/keypress to start</h1>
+  </body>
+</html>
