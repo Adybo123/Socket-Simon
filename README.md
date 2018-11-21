@@ -18,4 +18,4 @@ Hit a key or tap/click to begin, and watch the pattern play out across all the d
 
 ### How does it work?
 
-The server waits for a game start socket message, and assigns a colour to each client. Then, it sends out the pattern using a delay loop, with each iteration being sent 2 seconds after the other. During the input stag, the clients send a 'pattern input' signal, and the server matches their socket signature to a 'pattern array' which is all of the socket signatures in the correct order, moving along the pattern array as each client submits.
+The server waits for a game start socket message, and assigns a colour to each client. Then, it sends out the pattern using a delay loop, with each iteration being sent 2 seconds after the other. During the input stage, the clients send a 'pattern input' signal, and the server matches their socket signature to a 'pattern array' which is all of the socket signatures in the correct order, moving along the pattern array as each client submits.
